@@ -1,0 +1,37 @@
+function fs = ComputeFeature(ii_ims, ftype)
+n = length(ii_ims);
+fs = zeros(1,n);
+
+% ----------------------------
+if (ftype==1)
+% ----------------------------
+    for i = 1:n
+        % Get the size of the i:s ii_ims.
+        [W,H] = size(ii_ims(i));
+        % Get features for this ii_ims
+        Local_fs = EnumAllFeatures(W,H,ftype);
+        % Compute all the ftype features
+        for j=1:n
+            fs
+        end
+    end
+% ----------------------------
+else if (ftyp ==2)
+% ----------------------------
+        pass
+% ----------------------------
+    else if (ftyp ==3)
+% ----------------------------
+            pass
+% ----------------------------
+        else if (ftyp == 4)
+% ----------------------------
+                pass
+% ----------------------------
+% ends of end else                
+            end
+        end
+    end
+end
+% ----------------------------
+end

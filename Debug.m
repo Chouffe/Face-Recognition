@@ -87,23 +87,38 @@
 % all_ftypes = [all_ftypes;EnumAllFeatures(19,19,4)];
 % ComputeSaveFData(all_ftypes,'FeaturesToMat.mat');
 
+% % -------------------------------------------
+% % Debug 2.5 - Checking for Pgrm 13 & 14
+% % -------------------------------------------
+% dinfo4 = load('DebugInfo/debuginfo4.mat'); 
+% ni = dinfo4.ni;
+% all_ftypes = dinfo4.all_ftypes;
+% im_sfn = 'FaceData.mat';
+% f_sfn = 'FeaturesToMat.mat';
+% rng(dinfo4.jseed);
+% dirname = 'TrainingImages/FACES/';
+% LoadSaveImData(dirname, ni, im_sfn); 
+% ComputeSaveFData(all_ftypes, f_sfn);
+% % compare that the fmat and dinfo4.fmat are the same
+% min = load('FeaturesToMat.mat');
+% sum(sum(abs(dinfo4.fmat-min.fmat)>eps))
+% % Compare that ii_ims and dinfo4.ii_ims are the same
+% min2 = load('FaceData.mat');
+% sum(sum(abs(dinfo4.ii_ims-min2.ii_ims)>eps))
+
 % -------------------------------------------
-% Debug 2.5 - Checking for Pgrm 13 & 14
+% Debug 2.5 - Checking all
 % -------------------------------------------
-dinfo4 = load('DebugInfo/debuginfo4.mat'); 
-ni = dinfo4.ni;
-all_ftypes = dinfo4.all_ftypes;
-im_sfn = 'FaceData.mat';
-f_sfn = 'FeaturesToMat.mat';
-rng(dinfo4.jseed);
-dirname = 'TrainingImages/FACES/';
-LoadSaveImData(dirname, ni, im_sfn); 
-ComputeSaveFData(all_ftypes, f_sfn);
-% compare that the fmat and dinfo4.fmat are the same
-min = load('FeaturesToMat.mat');
-sum(sum(abs(dinfo4.fmat-min.fmat)>eps))
-% Compare that ii_ims and dinfo4.ii_ims are the same
-min2 = load('FaceData.mat');
-sum(sum(abs(dinfo4.ii_ims-min2.ii_ims)>eps))
+dinfo5 = load('DebugInfo/debuginfo5.mat'); 
+np = dinfo5.np;
+nn = dinfo5.nn;
+all_ftypes = dinfo5.all_ftypes;
+rng(dinfo5.jseed);
+GetTrainingData(all_ftypes,np,nn);
+% Load the files into Matlab
+Fdata = load('FaceData.mat');
+NFdata = load('NonFaceData.mat');
+FTdata = load('FeaturesToUse.mat');
+
 
 

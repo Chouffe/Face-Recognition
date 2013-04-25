@@ -1,0 +1,46 @@
+function fs = VecComputeFeature(ii_ims, ftype_vec)
+n = length(ii_ims);
+fs = zeros(n,1);
+
+switch type
+% ----------------------------
+    case 1
+% ----------------------------
+    for i = 1:n
+        % Reshape the ii_ims:i
+        ii_im = reshape(ii_ims(i,:,:), size(ii_ims(i,:,:),2),size(ii_ims(i,:,:),3));
+        % Compute the ftype feature        
+        fs(i) = ii_im(:)'*ftype_vec;
+    end
+% ----------------------------
+    case 2
+% ----------------------------
+    for i = 1:n
+        % Reshape the ii_ims:i
+        ii_im = reshape(ii_ims(i,:,:), size(ii_ims(i,:,:),2),size(ii_ims(i,:,:),3));
+        % Compute the ftype feature
+        fs(i) = FeatureTypeII(ii_im,x,y,w,h);
+    end
+% ----------------------------
+    case 3
+% ----------------------------
+    for i = 1:n
+        % Reshape the ii_ims:i
+        ii_im = reshape(ii_ims(i,:,:), size(ii_ims(i,:,:),2),size(ii_ims(i,:,:),3));
+        % Compute the ftype feature
+        fs(i) = FeatureTypeIII(ii_im,x,y,w,h);
+    end
+% ----------------------------
+    case 4
+% ----------------------------
+    for i = 1:n
+        % Reshape the ii_ims:i
+        ii_im = reshape(ii_ims(i,:,:), size(ii_ims(i,:,:),2),size(ii_ims(i,:,:),3));
+        % Compute the ftype feature
+        fs(i) = FeatureTypeIV(ii_im,x,y,w,h);
+    end
+% ----------------------------
+% ends of end else                
+end            
+% ----------------------------
+end

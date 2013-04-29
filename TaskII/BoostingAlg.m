@@ -23,7 +23,10 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 		par = 0;
 		response = [];
 		for j = 1:size(FTdata.fmat, 2)
+            % Fdata.ii_ims*Fdata.fmat(:,j) similar to
+            % VecComputeFeature(ii_ims, fmat(:,j).
 			feat_j = [Fdata.ii_ims * FTdata.fmat(:,j); NFdata.ii_ims * FTdata.fmat(:,j)]';
+            % Train the classifier.
 			[theta, p, err] = LearnWeakClassifier(w(t,:),feat_j,ys);
 
 			% Update parameters of optimal feature if necessary

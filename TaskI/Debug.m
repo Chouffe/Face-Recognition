@@ -2,7 +2,7 @@
 % -------------------------------------------
 % Debug 3
 % -------------------------------------------
-DirName = 'TrainingImages/FACES/';
+DirName = '../TrainingImages/FACES/';
 format = 'bmp';
 mystr = [DirName,'/*.',format];
 im_files = dir(mystr);
@@ -17,14 +17,14 @@ for i = 1:100
     % store each ii_im
     ii_ims(i,:,:)= ii_im;
 end
-dinfo3 = load('DebugInfo/debuginfo3.mat');
+dinfo3 = load('../DebugInfo/debuginfo3.mat');
 ftype = dinfo3.ftype;
 sum(abs(dinfo3.fs - ComputeFeature(ii_ims, ftype)) > eps)
 
 % -------------------------------------------
 % Debug 2.4 - Vectorize Prgm 9
 % -------------------------------------------
-[im, ii_im] = LoadIm('TrainingImages/FACES/face00001.bmp');
+[im, ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
 x = 2; y = 2; w = 4; h = 2;
 b_vec = VecBoxSum(x,y,w,h,19,19);
 A1 = ii_im(:)'*b_vec
@@ -34,7 +34,7 @@ A2 = ComputeBoxSum(ii_im,x,y,w,h)
 % -------------------------------------------
 % Debug 2.4 - Vectorize Prgm 10
 % -------------------------------------------
-[im, ii_im] = LoadIm('TrainingImages/FACES/face00001.bmp');
+[im, ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
 x = 2; y = 5; w = 4; h = 1;
 ftype_vec = VecFeature([4, x, y, w, h], 19, 19);
 A1 = ii_im(:)'*ftype_vec
@@ -43,7 +43,7 @@ A2 = FeatureTypeIV(ii_im,x,y,w,h)
 % -------------------------------------------
 % Debug 2.4 - Vectorize Prgm 12
 % -------------------------------------------
-DirName = 'TrainingImages/FACES/';
+DirName = '../TrainingImages/FACES/';
 format = 'bmp';
 mystr = [DirName,'/*.',format];
 im_files = dir(mystr);
@@ -75,7 +75,7 @@ sum(abs(fs1-fs2')> eps)
 % -------------------------------------------
 % Debug 2.5 - Prgm 13
 % -------------------------------------------
-LoadSaveImData('TrainingImages/FACES/',100,'FaceData.mat');
+LoadSaveImData('../TrainingImages/FACES/',100,'FaceData.mat');
 
 % -------------------------------------------
 % Debug 2.5 - Prgm 14
@@ -90,13 +90,13 @@ ComputeSaveFData(all_ftypes,'FeaturesToMat.mat');
 % -------------------------------------------
 % Debug 2.5 - Checking for Pgrm 13 & 14
 % -------------------------------------------
-dinfo4 = load('DebugInfo/debuginfo4.mat'); 
+dinfo4 = load('../DebugInfo/debuginfo4.mat'); 
 ni = dinfo4.ni;
 all_ftypes = dinfo4.all_ftypes;
 im_sfn = 'FaceData.mat';
 f_sfn = 'FeaturesToMat.mat';
 rng(dinfo4.jseed);
-dirname = 'TrainingImages/FACES/';
+dirname = '../TrainingImages/FACES/';
 LoadSaveImData(dirname, ni, im_sfn); 
 ComputeSaveFData(all_ftypes, f_sfn);
 % compare that the fmat and dinfo4.fmat are the same
@@ -109,7 +109,7 @@ sum(sum(abs(dinfo4.ii_ims-min2.ii_ims)>eps))
 % -------------------------------------------
 % Debug 2.5 - Checking all
 % -------------------------------------------
-dinfo5 = load('DebugInfo/debuginfo5.mat'); 
+dinfo5 = load('../DebugInfo/debuginfo5.mat'); 
 np = dinfo5.np;
 nn = dinfo5.nn;
 all_ftypes = dinfo5.all_ftypes;

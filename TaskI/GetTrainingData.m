@@ -1,6 +1,6 @@
 function GetTrainingData(all_ftypes, np, nn)
 % Dir name
-dirname = 'TrainingImages/FACES/';
+dirname = '../TrainingImages/FACES/';
 
 im_sfn = 'FaceData.mat';
 % First for FACES

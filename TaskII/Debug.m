@@ -1,4 +1,10 @@
 %Debug file
+addpath('../TaskI/');
+
+% Load the files of Taks I into Matlab
+Fdata = load('FaceData.mat');
+NFdata = load('NonFaceData.mat');
+FTdata = load('FeaturesToUse.mat');
 
 % % ----------------------------------
 % % Program 16 Debug
@@ -105,14 +111,51 @@
 % % Diplay the images
 % montage({fpic1,fpic2,fpic3,fpic},'Size',[1 4])
 
+% % ----------------------------------
+% % Program 19 Debug 2
+% % ----------------------------------
+% dinfo7 = load('../DebugInfo/debuginfo7.mat');
+% T = dinfo7.T;
+% Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
+% sum(abs(dinfo7.alphas - Cparams.alphas')>eps)
+% sum(abs(dinfo7.Thetas(:)  - Cparams.Thetas(:))>eps)
+% 
+% fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
+% for t= 1:T
+%     % Compute the feature pics. 
+%     fs.pics(t,:,:) = MakeFeaturePic(FTdata.all_ftypes(Cparams.Thetas(t,1),:),FTdata.W,FTdata.H);
+% end    
+% 
+% % Compute the final classifier pic.
+% fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
+% 
+% 
+% % Diplay the images
+% a = [];
+% for i= 1:(T+1)
+%     a = [a,reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)];
+%     % Individual images
+%     figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
+% end
+% montage(a)
+% 
+% % Save the data
+% name = 'Cparams.mat';
+% save(name, 'Cparams');
+
+
 % ----------------------------------
-% Program 19 Debug 2
+% Save more data
 % ----------------------------------
-dinfo7 = load('../DebugInfo/debuginfo7.mat');
-T = dinfo7.T;
+% Create a subset of only N features.
+N = 1000;
+FTdata_1k = FTdata;
+FTdata_1k.all_ftypes = FTdata_1k.all_ftypes(1:N,:);
+FTdata_1k.fmat = FTdata_1k.fmat(:,1:N);
+% Define T
+T = 10;
+% Get Cparams
 Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
-sum(abs(dinfo7.alphas - Cparams.alphas')>eps)
-sum(abs(dinfo7.Thetas(:)  - Cparams.Thetas(:))>eps)
 
 fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
 for t= 1:T
@@ -122,7 +165,6 @@ end
 
 % Compute the final classifier pic.
 fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
-
 
 % Diplay the images
 a = [];
@@ -134,9 +176,8 @@ end
 montage(a)
 
 % Save the data
-name = 'Cparams.mat';
+name = 'Cparams_1kT10.mat';
 save(name, 'Cparams');
-
 
 
 

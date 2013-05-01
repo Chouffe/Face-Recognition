@@ -148,10 +148,11 @@ FTdata = load('FeaturesToUse.mat');
 % Save more data
 % ----------------------------------
 % Create a subset of only N features.
-N = 1000;
-FTdata_1k = FTdata;
-FTdata_1k.all_ftypes = FTdata_1k.all_ftypes(1:N,:);
-FTdata_1k.fmat = FTdata_1k.fmat(:,1:N);
+N = 8000;
+FTdata_N = FTdata;
+FTdata_N.all_ftypes = FTdata_N.all_ftypes(1:N,:);
+FTdata_N.fmat = FTdata_N.fmat(:,1:N);
+FTdata = FTdata_N;
 % Define T
 T = 10;
 % Get Cparams
@@ -176,7 +177,7 @@ end
 montage(a)
 
 % Save the data
-name = 'Cparams_1kT10.mat';
+name = 'Cparams_8kT10.mat';
 save(name, 'Cparams');
 
 

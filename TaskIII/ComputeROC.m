@@ -1,4 +1,4 @@
-function ComputeROC(Cparams, Fdata, NFdata)
+function thresh = ComputeROC(Cparams, Fdata, NFdata)
 
 % Get the test images.
 face_fnames = dir(Fdata.dirname);
@@ -82,6 +82,6 @@ axis([-0.01,1,0,1.01])
 % legend('True positive rate', 'False positive rate')
 
 
-Cparams.thresh = thresholds(find(tpr < 0.7,1)-1);
+thresh = thresholds(find(tpr < 0.7,1)-1);
 
 end

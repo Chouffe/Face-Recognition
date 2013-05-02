@@ -17,11 +17,16 @@ sc = ApplyDetector(Cparams, ii_im)
 % ----------------------------------
 % Get the test images.
 face_fnames = dir(Fdata.dirname);
-index = 1:length(face_fnames);
+index = 3:length(face_fnames);
 face_test_index = setdiff(index,Fdata.fnums);
-length(face_test_index)
+
+
+
 % To access the test images we do
-% Choose filename
-% i is the file number
-i=1;
-im_fname = [Fdata.dirname, face_fnames(face_test_index(i)).name];
+for i=1:length(face_test_index)
+    % Choose filename
+    im_fname = [Fdata.dirname, face_fnames(face_test_index(i)).name];
+
+    % Apply detector
+    
+end

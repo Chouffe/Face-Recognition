@@ -1,3 +1,4 @@
+
 % %Debug%
 % im = '../TestImages/one_chris.png';
 % addpath('../TaskIII');
@@ -13,6 +14,13 @@
 
 %Test
 
+addpath('../TaskIII/');
+addpath('../TaskI/');
+
+% Cparams = load('../TaskII/Cparams_AllT3.mat');
+Cparams = load('../TaskII/Cparams.mat');
+Cparams = Cparams.Cparams;
+
 im = '../TrainingImages/FACES/face00007.bmp';
 [i1,i2] = LoadIm(im);
 a = ApplyDetector(Cparams,i2)
@@ -24,4 +32,3 @@ abs(a-b)
 im = '../TestImages/one_chris.png'
 dets = ScanImageFixedSize(Cparams, im);
 size(find (dets> Cparams.thresh))
-

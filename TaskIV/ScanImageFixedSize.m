@@ -1,4 +1,5 @@
 function dets = ScanImageFixedSize(Cparams, im)
+
 %Read the image    
 I = imread(im);
 
@@ -59,5 +60,6 @@ for x = 1:X
 end
 % x = 22, y = 25;
 end
+
 
 

@@ -3,18 +3,17 @@ function DisplayDetections(im, dets)
 I = imread(im);
 
 figure, imshow(I);
-detectedFaceNumber = size(dets,1);
+
+detectedFaceNumber = size(dets,2);
 
 for i = 1:detectedFaceNumber
 
-    x = dets(i, 1);
-    y = dets(i, 2);
-    w = dets(i, 3);
-    h = dets(i, 4);
+    x = dets(1, i);
+    y = dets(2, i);
+    w = dets(3, i) - x;
+    h = dets(4, i) - y;
 
-    rectangle('Position',[x, y + h, w, h],'EdgeColor', 'r');
-    % % Wrong ploting
-    % rectangle('Position',[x - w/2, y + h/2, w, h],'EdgeColor', 'b');
+    rectangle('Position',[x, y, w, h],'EdgeColor', 'r');
 end
 
 end

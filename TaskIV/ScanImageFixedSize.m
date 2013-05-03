@@ -1,5 +1,4 @@
 function dets = ScanImageFixedSize(Cparams, im)
-
 %Read the image    
 I = imread(im);
 
@@ -44,9 +43,9 @@ for x = 1:X
         % Apply detector taking into account sigma, and mu*w*h        
         sc = ApplyDetectorM(Cparams,new_patch,sigma,mu*L^2);
         % Is it a face?
-        if (sc>0)%Cparams.thresh)
+        if (sc>Cparams.thresh)
           % Keep it as a face  
-          dets = [dets;sc];%[x,y,L,L]];
+          dets = [dets;[x,y,L,L]];
         end 
         if (y+L > Y)
             break;

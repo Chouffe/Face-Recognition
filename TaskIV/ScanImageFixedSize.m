@@ -26,8 +26,8 @@ sc = zeros(1,4);
 dets = [];
 % Square the ii
 squared = ii_im.*ii_im;
-for x = 1:X-L
-    for y = 1:Y-L
+for x = 1:X
+    for y = 1:Y
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
@@ -38,14 +38,21 @@ for x = 1:X-L
         % Compute sigma
         sigma = sqrt((1/ (L^2-1))*(sum(sum(sq)) - L^2*mu^2)); 
         % -------------------------------------
-        % Apply detector
-        % Error here!!!!!!!!!
-        sc = ApplyDetectorM(Cparams,patch,sigma,mu*L^2);
+        % Normalize the patch
+        new_patch = (patch-mu)/sigma;
+        % Apply detector taking into account sigma, and mu*w*h        
+        sc = ApplyDetectorM(Cparams,new_patch,sigma,mu*L^2);
         % Is it a face?
         if (sc>0)%Cparams.thresh)
           % Keep it as a face  
           dets = [dets;sc];%[x,y,L,L]];
-        end        
+        end 
+        if (y+L > Y)
+            break;
+        end
+    end
+    if (x+L> X)
+        break;
     end
 end
 % x = 22, y = 25;

@@ -13,7 +13,7 @@
 
 %Test
 
-im = '../TrainingImages/FACES/face00001.bmp';
+im = '../TrainingImages/FACES/face00007.bmp';
 [i1,i2] = LoadIm(im);
 a = ApplyDetector(Cparams,i2)
 

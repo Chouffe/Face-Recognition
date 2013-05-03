@@ -30,6 +30,9 @@ Cparams = Cparams.Cparams;
 im = '../TestImages/one_chris.png'
 dets = ScanImageFixedSize(Cparams, im);
 
+% dets = ScanImageFixedSize2(Cparams, im);
+DisplayDetections(im, dets);
+
 size(find (dets> Cparams.thresh))
 
 % Display the detected face

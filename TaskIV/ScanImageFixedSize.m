@@ -45,7 +45,9 @@ for x = 1:X
         % Is it a face?
         if (sc>Cparams.thresh)
           % Keep it as a face  
-          dets = [dets;[x,y,L,L]];
+          dets = [dets;[x,y,L,L]]; 
+          % For debug and check if it is working.
+          % dets = [dets;sc]; 
         end 
         if (y+L > Y)
             break;

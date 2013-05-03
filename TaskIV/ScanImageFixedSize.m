@@ -47,7 +47,6 @@ for x = 1:X
         if (sc>Cparams.thresh)
           % Keep it as a face  
           dets = [dets;[x,y,L,L]];
-
         end 
         if (y+L > Y)
             break;
@@ -58,5 +57,4 @@ for x = 1:X
     end
 end
 % x = 22, y = 25;
-
 end

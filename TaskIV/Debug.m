@@ -30,4 +30,3 @@
 im = '../TestImages/one_chris.png'
 dets = ScanImageFixedSize(Cparams, im);
 size(find (dets> Cparams.thresh))
-

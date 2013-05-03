@@ -12,7 +12,7 @@ for i = 1:detectedFaceNumber
     w = dets(i, 3);
     h = dets(i, 4);
 
-    rectangle('Position',[x, y, w, h],'EdgeColor', 'r');
+    rectangle('Position',[x-w/2, y+h/2, w, h],'EdgeColor', 'r');
 end
 
 end

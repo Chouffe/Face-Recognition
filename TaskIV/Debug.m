@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 % %Debug%
 % im = '../TestImages/one_chris.png';
 % addpath('../TaskIII');

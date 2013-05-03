@@ -1,5 +1,4 @@
 function dets = ScanImageFixedSize(Cparams, im)
-
 %Read the image    
 I = imread(im);
 

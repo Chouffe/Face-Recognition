@@ -14,6 +14,7 @@ function dets = ScanImageFixedSize(Cparams, ii_im)
 % % Integral Image.
 % ii_im = cumsum(cumsum(im,2));
 
+
 L = 19;
 [Y,X]=size(ii_im);
 % score vector

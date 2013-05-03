@@ -50,11 +50,6 @@ for x = 1:X-L+1
         end 
     end
 end
-<<<<<<< HEAD
 % Debug
 %dets = scs;
-
-=======
-% x = 22, y = 25;
->>>>>>> Debug file and ScanImageFixedSize created
 end

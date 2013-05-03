@@ -3,15 +3,19 @@ function DisplayDetections(im, dets)
 I = imread(im);
 
 figure, imshow(I);
+<<<<<<< HEAD
 
 detectedFaceNumber = size(dets,2);
+=======
+detectedFaceNumber = size(dets,1);
+>>>>>>> Changed and Fixed PruneDetections and DisplayDetections
 
 for i = 1:detectedFaceNumber
 
-    x = dets(1, i);
-    y = dets(2, i);
-    w = dets(3, i) - x;
-    h = dets(4, i) - y;
+    x = dets(i, 1);
+    y = dets(i, 2);
+    w = dets(i, 3);
+    h = dets(i, 4);
 
     rectangle('Position',[x, y, w, h],'EdgeColor', 'r');
 end

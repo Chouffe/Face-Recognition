@@ -4,7 +4,9 @@ addpath('../TaskII');
 addpath('../TaskI');
 
 % Program 20
+
 Cparams = load('../TaskIII/Cparams.mat');
+
 Cparams = Cparams.Cparams;
 % Fdata = load('FaceData.mat');
 % NFdata = load('NonFaceData.mat');
@@ -70,5 +72,3 @@ DisplayDetections(path, fdets);
 % 
 % dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
 % DisplayDetections(im, dets);
-
-

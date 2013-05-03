@@ -1,28 +1,26 @@
-%Debug%
-im = '../TestImages/one_chris.png';
-addpath('../TaskIII');
+% %Debug%
+% im = '../TestImages/one_chris.png';
+% addpath('../TaskIII');
+% addpath('../TaskII');
+% addpath('../TaskI');
+% 
+% % Program 20
+% Cparams = load('../TaskII/Cparams.mat');
+% Cparams = Cparams.Cparams;
+% Fdata = load('FaceData.mat');
+% NFdata = load('NonFaceData.mat');
+% FTdata = load('FeaturesToUse.mat');
 
-% Program 20
-Cparams = load('../TaskII/Cparams.mat');
-Cparams = Cparams.Cparams;
-Fdata = load('FaceData.mat');
-NFdata = load('NonFaceData.mat');
-FTdata = load('FeaturesToUse.mat');
+%Test
 
-I = imread(im);
-imshow(I)
-I = rgb2gray(I);
-I = double(I);
+im = '../TrainingImages/FACES/face00001.bmp';
+[i1,i2] = LoadIm(im);
+a = ApplyDetector(Cparams,i2)
 
-% Illummination invariance
-u = mean(I(:));
-o = std(I(:));
-if (o~=0)
-    im = (I-u)/o;
-    norm_image= im;
-else
-    im = I;
-end
+b = ScanImageFixedSize(Cparams, im)
 
-% Integral Image.
-ii_im = cumsum(cumsum(im,2));
+abs(a-b)
+
+im = '../TestImages/one_chris.png'
+dets = ScanImageFixedSize(Cparams, im);
+size(find (dets> Cparams.thresh))

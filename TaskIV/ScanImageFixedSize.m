@@ -6,7 +6,7 @@ I = imread(im);
 if size(im,3) == 3
     I = rgb2gray(I);
 end
-
+I = double(I);
 % Illummination invariance
 u = mean(I(:));
 o = std(I(:));
@@ -40,7 +40,7 @@ for x = 1:X-L
         % -------------------------------------
         % Apply detector
         % Error here!!!!!!!!!
-        sc = ApplyDetector(Cparams,(1/sigma)*patch);
+        sc = ApplyDetectorM(Cparams,patch,sigma,mu*L^2);
         % Is it a face?
         if (sc>0)%Cparams.thresh)
           % Keep it as a face  

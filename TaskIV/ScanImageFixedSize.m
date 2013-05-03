@@ -43,7 +43,6 @@ for x = 1:X
         % Apply detector taking into account sigma, and mu*w*h        
         sc = ApplyDetectorM(Cparams,new_patch,sigma,mu*L^2);
         % Is it a face?
-
         if (sc>Cparams.thresh)
           % Keep it as a face  
           dets = [dets;[x,y,L,L]];
@@ -58,3 +57,4 @@ for x = 1:X
 end
 % x = 22, y = 25;
 end
+

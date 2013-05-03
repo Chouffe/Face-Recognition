@@ -18,7 +18,6 @@ sc = ApplyDetector(Cparams, ii_im)
 % ----------------------------------
 % Program 21 Debug
 % ----------------------------------
-
 % Get the test images.
 face_fnames = dir(Fdata.dirname);
 index = 3:length(face_fnames);

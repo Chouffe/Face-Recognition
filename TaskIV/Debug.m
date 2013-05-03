@@ -1,12 +1,12 @@
-% %Debug%
-% im = '../TestImages/one_chris.png';
-% addpath('../TaskIII');
-% addpath('../TaskII');
-% addpath('../TaskI');
-% 
-% % Program 20
-% Cparams = load('../TaskII/Cparams.mat');
-% Cparams = Cparams.Cparams;
+%Debug%
+im = '../TestImages/one_chris.png';
+addpath('../TaskIII');
+addpath('../TaskII');
+addpath('../TaskI');
+
+% Program 20
+Cparams = load('../TaskII/Cparams.mat');
+Cparams = Cparams.Cparams;
 % Fdata = load('FaceData.mat');
 % NFdata = load('NonFaceData.mat');
 % FTdata = load('FeaturesToUse.mat');
@@ -24,3 +24,7 @@ abs(a-b)
 im = '../TestImages/one_chris.png'
 dets = ScanImageFixedSize(Cparams, im);
 size(find (dets> Cparams.thresh))
+
+% Display the detected face
+fdets = PruneDetections(dets);
+DisplayDetections(im, fdets);

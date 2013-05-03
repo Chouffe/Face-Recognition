@@ -54,9 +54,11 @@ path = '../TestImages/one_chris.png';
 % Load the image
 [im, I] = LoadIm(path);
 
+
 % % Without pruning
 dets = ScanImageFixedSize(Cparams, I);
 DisplayDetections(path, dets);
+
 
 % Display the detected face with pruning
 fdets = PruneDetections(dets);

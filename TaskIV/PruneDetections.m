@@ -26,7 +26,7 @@ for i = 1:nd
     end
 end
 
-[S, C] = graphconncomp(sparse(D))
+[S, C] = graphconncomp(sparse(D));
 
 fdets = zeros(S, 4);
 total = zeros(S);

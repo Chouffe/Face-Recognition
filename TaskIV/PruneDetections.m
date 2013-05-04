@@ -61,6 +61,7 @@ for i = 1:nd
 end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [S, C] = graphconncomp(sparse(D));
 
 fdets = zeros(S, 4);
@@ -76,6 +77,9 @@ for k = 1:length(C)
     fdets(C(k), 4) = fdets(C(k), 4) + dets(C(k), 4);
 =======
 [S, C] = graphconncomp(sparse(D))
+=======
+[S, C] = graphconncomp(sparse(D));
+>>>>>>> ScanImageOverScale done, part IV done, check that out
 
 fdets = zeros(S, 4);
 total = zeros(S);

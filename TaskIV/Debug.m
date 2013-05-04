@@ -4,7 +4,7 @@ addpath('../TaskII');
 addpath('../TaskI');
 
 % Program 20
-Cparams = load('../TaskII/Cparams.mat');
+Cparams = load('../TaskIII/Cparams.mat');
 Cparams = Cparams.Cparams;
 % Fdata = load('FaceData.mat');
 % NFdata = load('NonFaceData.mat');
@@ -56,10 +56,9 @@ path = '../TestImages/one_chris.png';
 dets = ScanImageFixedSize(Cparams, I);
 DisplayDetections(path, dets);
 
-% figure()
-% % Display the detected face with pruning
-% fdets = PruneDetections(dets);
-% DisplayDetections(path, fdets);
+% Display the detected face with pruning
+fdets = PruneDetections(dets);
+DisplayDetections(path, fdets);
 % figure()
 % 
 % 

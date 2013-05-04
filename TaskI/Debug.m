@@ -90,6 +90,7 @@
 % % -------------------------------------------
 % % Debug 2.5 - Checking for Pgrm 13 & 14
 % % -------------------------------------------
+% eps = 1e-6;
 % dinfo4 = load('../DebugInfo/debuginfo4.mat'); 
 % ni = dinfo4.ni;
 % all_ftypes = dinfo4.all_ftypes;

@@ -1,5 +1,4 @@
 %Debug%
-im = '../TestImages/one_chris.png';
 addpath('../TaskIII');
 addpath('../TaskII');
 addpath('../TaskI');
@@ -11,40 +10,64 @@ Cparams = Cparams.Cparams;
 % NFdata = load('NonFaceData.mat');
 % FTdata = load('FeaturesToUse.mat');
 
-%Test
-%
-%im = '../TrainingImages/FACES/face00007.bmp';
-%[i1,i2] = LoadIm(im);
-%a = ApplyDetector(Cparams,i2)
-%
-%b = ScanImageFixedSize(Cparams, im)
-%
-%abs(a-b)
+% % ----------------------------------
+% % Program 22 Debug
+% % ----------------------------------
+% 
+% % More robust check!
+% 
+% % Get the test images.
+% Fdata = load('FaceData.mat');
+% face_fnames = dir(Fdata.dirname);
+% index = 3:length(face_fnames);
+% face_test_index = setdiff(index,Fdata.fnums);
+% 
+% % Store the values of scores.
+% scores_faces = zeros(1,length(face_test_index));
+% new_scores_faces = zeros(1,length(face_test_index));
+% 
+% % To access the test images we do
+% for i=1:length(face_test_index)
+%     % Choose filename
+%     im_fname = [Fdata.dirname, face_fnames(face_test_index(i)).name];
+%     % ----------------
+%     % Load data
+%     % ----------------
+%     [im, ii_im] = LoadIm(im_fname);
+%     
+%     % Apply detector
+%     scores_faces(i) = ApplyDetector(Cparams, ii_im);
+%     new_scores_faces(i) = ScanImageFixedSize(Cparams,ii_im);
+%     
+% end
+% sum(abs(scores_faces-new_scores_faces))
 
+
+% ----------------------------------
+% Program 23 Debug
+% ----------------------------------
 % Test ScanImageFixedSize
-im = '../TestImages/one_chris.png'
-I = imread(im);
+path = '../TestImages/one_chris.png';
 
-if size(im,3) == 3
-    I = rgb2gray(I);
-end
-I = double(I);
+% Load the image
+[im, I] = LoadIm(path);
 
-% Without pruning
+% % Without pruning
 dets = ScanImageFixedSize(Cparams, I);
-DisplayDetections(im, dets);
-% size(find (dets> Cparams.thresh))
+DisplayDetections(path, dets);
 
-% Display the detected face with pruning
-fdets = PruneDetections(dets);
-DisplayDetections(im, fdets);
-
-
-% Test ScanImageOverScale: Fucked!!!
-im = '../TestImages/big_one_chris.png';
-min_s = 0.1;
-max_s = 1.0;
-step_s = .06;
-
-dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
-DisplayDetections(im, dets);
+% figure()
+% % Display the detected face with pruning
+% fdets = PruneDetections(dets);
+% DisplayDetections(path, fdets);
+% figure()
+% 
+% 
+% % Test ScanImageOverScale: Fucked!!!
+% im = '../TestImages/big_one_chris.png';
+% min_s = 0.1;
+% max_s = 1.0;
+% step_s = .06;
+% 
+% dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
+% DisplayDetections(im, dets);

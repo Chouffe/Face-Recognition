@@ -1,29 +1,29 @@
-function dets = ScanImageFixedSize(Cparams, im)
+function dets = ScanImageFixedSize(Cparams, ii_im)
 
-%Read the image    
-I = im;
-
-u = mean(I(:));
-o = std(I(:));
-if (o~=0)
-    im = (I-u)/o;
-else
-    im = I;
-end
-
-% Integral Image.
-ii_im = cumsum(cumsum(im,2));
+% %Read the image    
+% I = im;
+% 
+% u = mean(I(:));
+% o = std(I(:));
+% if (o~=0)
+%     im = (I-u)/o;
+% else
+%     im = I;
+% end
+% 
+% % Integral Image.
+% ii_im = cumsum(cumsum(im,2));
 
 L = 19;
-[Y,X]=size(im);
+[Y,X]=size(ii_im);
 % score vector
-sc = zeros(1,4);
+scs = [];
 dets = [];
 % Square the ii
 squared = ii_im.*ii_im;
 
-for x = 1:X-L
-    for y = 1:Y-L
+for x = 1:X-L+1
+    for y = 1:Y-L+1
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
@@ -35,15 +35,20 @@ for x = 1:X-L
         sigma = sqrt((1/ (L^2-1))*(sum(sum(sq)) - L^2*mu^2)); 
         % -------------------------------------
         % Normalize the patch
-        new_patch = (patch-mu)/sigma;
+        Norm_patch = (patch-mu)/sigma;
         % Apply detector taking into account sigma, and mu*w*h        
-        sc = ApplyDetectorM(Cparams,new_patch,sigma,mu*L^2);
+        sc = ApplyDetectorM(Cparams,Norm_patch,sigma,mu*L^2);
         % Is it a face?
+        %if (sc>0)% For debug.
         if (sc>Cparams.thresh)
           % Keep it as a face  
+          % Debug
+          %scs = sc
           dets = [dets;[x,y,L,L]];
         end 
     end
 end
-% x = 22, y = 25;
+% Debug
+%dets = scs;
+
 end

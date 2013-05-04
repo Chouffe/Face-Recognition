@@ -1,5 +1,5 @@
 function DisplayDetections(im, dets)
-
+% just a test
 I = imread(im);
 
 figure, imagesc(I); axis equal;

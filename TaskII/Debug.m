@@ -111,52 +111,14 @@ FTdata = load('FeaturesToUse.mat');
 % % Diplay the images
 % montage({fpic1,fpic2,fpic3,fpic},'Size',[1 4])
 
-% % ----------------------------------
-% % Program 19 Debug 2
-% % ----------------------------------
-% dinfo7 = load('../DebugInfo/debuginfo7.mat');
-% T = dinfo7.T;
-% Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
-% sum(abs(dinfo7.alphas - Cparams.alphas')>eps)
-% sum(abs(dinfo7.Thetas(:)  - Cparams.Thetas(:))>eps)
-% 
-% fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
-% for t= 1:T
-%     % Compute the feature pics. 
-%     fs.pics(t,:,:) = MakeFeaturePic(FTdata.all_ftypes(Cparams.Thetas(t,1),:),FTdata.W,FTdata.H);
-% end    
-% 
-% % Compute the final classifier pic.
-% fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
-% 
-% 
-% % Diplay the images
-% a = [];
-% for i= 1:(T+1)
-%     a = [a,reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)];
-%     % Individual images
-%     figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
-% end
-% montage(a)
-% 
-% % Save the data
-% name = 'Cparams.mat';
-% save(name, 'Cparams');
-
-
 % ----------------------------------
-% Save more data
+% Program 19 Debug 2
 % ----------------------------------
-% Create a subset of only N features.
-N = 8000;
-FTdata_N = FTdata;
-FTdata_N.all_ftypes = FTdata_N.all_ftypes(1:N,:);
-FTdata_N.fmat = FTdata_N.fmat(:,1:N);
-FTdata = FTdata_N;
-% Define T
-T = 10;
-% Get Cparams
+dinfo7 = load('../DebugInfo/debuginfo7.mat');
+T = dinfo7.T;
 Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
+sum(abs(dinfo7.alphas - Cparams.alphas')>eps)
+sum(abs(dinfo7.Thetas(:)  - Cparams.Thetas(:))>eps)
 
 fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
 for t= 1:T
@@ -166,6 +128,7 @@ end
 
 % Compute the final classifier pic.
 fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
+
 
 % Diplay the images
 a = [];
@@ -177,8 +140,45 @@ end
 montage(a)
 
 % Save the data
-name = 'Cparams_8kT10.mat';
+name = 'Cparams.mat';
 save(name, 'Cparams');
+
+
+% % ----------------------------------
+% % Save more data
+% % ----------------------------------
+% % Create a subset of only N features.
+% N = 8000;
+% FTdata_N = FTdata;
+% FTdata_N.all_ftypes = FTdata_N.all_ftypes(1:N,:);
+% FTdata_N.fmat = FTdata_N.fmat(:,1:N);
+% FTdata = FTdata_N;
+% % Define T
+% T = 10;
+% % Get Cparams
+% Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
+% 
+% fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
+% for t= 1:T
+%     % Compute the feature pics. 
+%     fs.pics(t,:,:) = MakeFeaturePic(FTdata.all_ftypes(Cparams.Thetas(t,1),:),FTdata.W,FTdata.H);
+% end    
+% 
+% % Compute the final classifier pic.
+% fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
+% 
+% % Diplay the images
+% a = [];
+% for i= 1:(T+1)
+%     a = [a,reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)];
+%     % Individual images
+%     figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
+% end
+% montage(a)
+% 
+% % Save the data
+% name = 'Cparams_8kT10.mat';
+% save(name, 'Cparams');
 
 
 

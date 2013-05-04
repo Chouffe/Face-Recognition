@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function dets = ScanImageFixedSize(Cparams, ii_im)
 
 % %Read the image    
@@ -14,23 +13,7 @@ function dets = ScanImageFixedSize(Cparams, ii_im)
 % 
 % % Integral Image.
 % ii_im = cumsum(cumsum(im,2));
-=======
-function dets = ScanImageFixedSize(Cparams, im)
 
-%Read the image    
-I = im;
-
-u = mean(I(:));
-o = std(I(:));
-if (o~=0)
-    im = (I-u)/o;
-else
-    im = I;
-end
-
-% Integral Image.
-ii_im = cumsum(cumsum(im,2));
->>>>>>> ScanImageOverScale done, part IV done, check that out
 
 L = 19;
 [Y,X]=size(ii_im);
@@ -40,13 +23,9 @@ dets = [];
 % Square the ii
 squared = ii_im.*ii_im;
 
-<<<<<<< HEAD
 for x = 1:X-L+1
     for y = 1:Y-L+1
-=======
-for x = 1:X-L
-    for y = 1:Y-L
->>>>>>> ScanImageOverScale done, part IV done, check that out
+
         % -------------------------------------
         % Normalize the box
         % -------------------------------------

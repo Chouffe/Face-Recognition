@@ -4,7 +4,9 @@ addpath('../TaskII');
 addpath('../TaskI');
 
 % Program 20
+
 Cparams = load('../TaskIII/Cparams.mat');
+
 Cparams = Cparams.Cparams;
 % Fdata = load('FaceData.mat');
 % NFdata = load('NonFaceData.mat');
@@ -52,9 +54,11 @@ path = '../TestImages/one_chris.png';
 % Load the image
 [im, I] = LoadIm(path);
 
+
 % % Without pruning
 dets = ScanImageFixedSize(Cparams, I);
 DisplayDetections(path, dets);
+
 
 % Display the detected face with pruning
 fdets = PruneDetections(dets);
@@ -70,5 +74,4 @@ DisplayDetections(path, fdets);
 % 
 % dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
 % DisplayDetections(im, dets);
-
 

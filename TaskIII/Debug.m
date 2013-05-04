@@ -8,11 +8,11 @@ NFdata = load('NonFaceData.mat');
 FTdata = load('FeaturesToUse.mat');
 
 
-% % ----------------------------------
-% % Program 20 Debug
-% % ----------------------------------
-% [im, ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
-% sc = ApplyDetector(Cparams, ii_im)
+% ----------------------------------
+% Program 20 Debug
+% ----------------------------------
+[im, ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
+sc = ApplyDetector(Cparams, ii_im)
 
 
 % ----------------------------------
@@ -110,6 +110,6 @@ end
 thresh = ComputeROC(Cparams,Fdata,NFdata);
 
 Cparams.thresh = thresh;
-
 name = 'Cparams.mat';
+
 save(name, 'Cparams');

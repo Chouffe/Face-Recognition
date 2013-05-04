@@ -11,30 +11,40 @@ Cparams = Cparams.Cparams;
 % NFdata = load('NonFaceData.mat');
 % FTdata = load('FeaturesToUse.mat');
 
-% % ----------------------------------
-% % Program 22 Debug
-% % ----------------------------------
-% 
-% % Old Detector
-% im = '../TrainingImages/FACES/face00007.bmp';
-% [i1,i2] = LoadIm(im);
-% a = ApplyDetector(Cparams,i2)
-% 
-% % New detector
-% b = ScanImageFixedSize(Cparams, im)
-% 
-% % Should be 0.
-% abs(a-b)
+%Test
+%
+%im = '../TrainingImages/FACES/face00007.bmp';
+%[i1,i2] = LoadIm(im);
+%a = ApplyDetector(Cparams,i2)
+%
+%b = ScanImageFixedSize(Cparams, im)
+%
+%abs(a-b)
 
-% Test with an image
+% Test ScanImageFixedSize
 im = '../TestImages/one_chris.png'
-dets = ScanImageFixedSize(Cparams, im);
+I = imread(im);
 
-% dets = ScanImageFixedSize2(Cparams, im);
+if size(im,3) == 3
+    I = rgb2gray(I);
+end
+I = double(I);
+
+% Without pruning
+dets = ScanImageFixedSize(Cparams, I);
 DisplayDetections(im, dets);
+% size(find (dets> Cparams.thresh))
 
-size(find (dets> Cparams.thresh))
-
-% Display the detected face
+% Display the detected face with pruning
 fdets = PruneDetections(dets);
 DisplayDetections(im, fdets);
+
+
+% Test ScanImageOverScale: Fucked!!!
+im = '../TestImages/big_one_chris.png';
+min_s = 0.1;
+max_s = 1.0;
+step_s = .06;
+
+dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
+DisplayDetections(im, dets);

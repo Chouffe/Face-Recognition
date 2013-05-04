@@ -1,13 +1,8 @@
 function dets = ScanImageFixedSize(Cparams, im)
-%Read the image    
-I = imread(im);
 
-% Do image procesing
-if size(im,3) == 3
-    I = rgb2gray(I);
-end
-I = double(I);
-% Illummination invariance
+%Read the image    
+I = im;
+
 u = mean(I(:));
 o = std(I(:));
 if (o~=0)
@@ -26,8 +21,9 @@ sc = zeros(1,4);
 dets = [];
 % Square the ii
 squared = ii_im.*ii_im;
-for x = 1:X
-    for y = 1:Y
+
+for x = 1:X-L
+    for y = 1:Y-L
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
@@ -49,12 +45,6 @@ for x = 1:X
           % For debug and check if it is working.
           % dets = [dets;sc]; 
         end 
-        if (y+L > Y)
-            break;
-        end
-    end
-    if (x+L> X)
-        break;
     end
 end
 % x = 22, y = 25;

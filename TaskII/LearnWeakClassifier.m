@@ -1,12 +1,16 @@
 function [theta, p, err] = LearnWeakClassifier(ws, fs, ys)
 
-	mu_p = sum(ws .* fs .* ys) / sum(ws .* ys);
-	mu_n = sum(ws .* fs .* (1-ys)) / sum(ws .* (1-ys));
+    a = ws .* ys;
+    b = ws .* (1-ys);
+	mu_p = sum(a .* fs) / sum(a);
+	mu_n = sum(b .* fs) / sum(b);
 
 	theta = .5 * (mu_p + mu_n);
 
-	errs(1) = sum(ws .* abs(ys - h(fs,-1,theta)));
-	errs(2) = sum(ws .* abs(ys - h(fs,1,theta)));
+    % p = -1
+	errs(1) = sum(ws .* abs(ys - (-1.*fs < -theta)));
+    % p = 1
+	errs(2) = sum(ws .* abs(ys - (1.*fs < theta)));
 
 	[err, ind] = min(errs);
 
@@ -15,6 +19,6 @@ function [theta, p, err] = LearnWeakClassifier(ws, fs, ys)
 end
 
 
-function cls = h(f,p,theta)
-	cls = p.*f < p*theta;
-end
+% function cls = h(f,p,theta)
+% 	cls = p.*f < p*theta;
+% end

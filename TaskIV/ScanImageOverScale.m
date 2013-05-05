@@ -11,11 +11,14 @@ I = double(I);
 dets = [];
  
 for s = min_s:step_s:max_s
- 
+    % Scale the image
     scaled_im = imresize(I, s);
+    % Search for faces on the scaled image
     s_dets = ScanImageFixedSize(Cparams, scaled_im);
+    % Prune the faces
     s_fdets = PruneDetections(s_dets);
  
+    % Rescale the results.
     for k = 1:size(s_fdets, 1)
         s_fdets(k,1) = round(s_fdets(k,1) / sqrt(s));
         s_fdets(k,2) = round(s_fdets(k,2) / sqrt(s));
@@ -26,5 +29,5 @@ for s = min_s:step_s:max_s
     dets = [dets; s_fdets];
  
 end
- 
+%dets = PruneDetections(dets);
 end

@@ -59,7 +59,7 @@ for x = 1:X-L+1
 %             end
 %         drawnow;
 %         sc
-        if (sc>Cparams.thresh)
+        if (sc>8)%Cparams.thresh)
           % Keep it as a face  
           % Debug          
           %dets = sc;

@@ -7,10 +7,10 @@ function sc = ApplyDetectorM(Cparams, ii_im,sigma,uwh)
         type = Cparams.all_ftypes(Cparams.Thetas(t,1));
         switch type
             case 3                        
-                f = ii_im(:)' * ((Cparams.fmat(:,Cparams.Thetas(t,1)))*sigma-uwh);                   
+                f = ii_im(:)' * ((Cparams.fmat(:,Cparams.Thetas(t,1))*sigma)-uwh);                   
             otherwise
-                f = ii_im(:)' * (Cparams.fmat(:,Cparams.Thetas(t,1)))*sigma;            
-        end
+                f = ii_im(:)' * (Cparams.fmat(:,Cparams.Thetas(t,1))*sigma);            
+         end
 		% Parity
         p = Cparams.Thetas(t,3);
         % threshold
@@ -22,5 +22,5 @@ end
 
 % Weak classifier.
 function cls = h(f,p,theta)
-	cls = p*f < p*theta;
+	cls = f < theta;
 end

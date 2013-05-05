@@ -73,13 +73,13 @@ DisplayDetections(path, dets);
 fdets = PruneDetections(dets);
 DisplayDetections(path, fdets);
  
-% Test ScanImageOverScale: Fucked!!!
-im = '../TestImages/big_one_chris.png';
-min_s = 0.1;
-max_s = 1.0;
-step_s = .06;
- 
-dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
-DisplayDetections(im, dets);
+% % Test ScanImageOverScale: Fucked!!!
+% im = '../TestImages/big_one_chris.png';
+% min_s = 0.1;
+% max_s = 1.0;
+% step_s = .06;
+%  
+% dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
+% DisplayDetections(im, dets);
  
 

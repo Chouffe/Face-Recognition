@@ -22,7 +22,9 @@ scs = [];
 dets = [];
 % Square the ii
 squared = ii_im.*ii_im;
- 
+% just a test
+I = imread('../TestImages/one_chris.png');
+figure(); imagesc(I); axis equal;
 for x = 1:X-L+1
     for y = 1:Y-L+1
         sc=0;
@@ -41,10 +43,18 @@ for x = 1:X-L+1
         % Apply detector taking into account sigma, and mu*w*h        
         sc = ApplyDetectorM(Cparams,Norm_patch,sigma,mu*L^2);
         % Is it a face?
-        %if (sc>0)% For debug.
+%         % For debug.  
+%         if (sc>6.5) 
+%             if sc>Cparams.thresh
+%                     rectangle('Position',[x, y, L, L],'EdgeColor', 'r');
+%             else 
+%                     rectangle('Position',[x, y, L, L],'EdgeColor', 'b');
+%             end
+%         drawnow;
+%         sc
         if (sc>Cparams.thresh)
           % Keep it as a face  
-          % Debug
+          % Debug          
           %scs = [scs;sc];
           dets = [dets;[x,y,L,L]];
         end 

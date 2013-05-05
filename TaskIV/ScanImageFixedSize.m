@@ -25,7 +25,7 @@ squared = ii_im.*ii_im;
 
 for x = 1:X-L+1
     for y = 1:Y-L+1
-
+        sc=0;
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
@@ -45,7 +45,7 @@ for x = 1:X-L+1
         if (sc>Cparams.thresh)
           % Keep it as a face  
           % Debug
-          %scs = sc
+          %scs = [scs;sc];
           dets = [dets;[x,y,L,L]];
         end 
     end

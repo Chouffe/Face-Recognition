@@ -13,9 +13,20 @@ Cparams = Cparams.Cparams;
 % FTdata = load('FeaturesToUse.mat');
 
 % % ----------------------------------
-% % Program 22 Debug
+% % One file test
 % % ----------------------------------
+% im_fname = '../TrainingImages/FACES/face00001.bmp';
+% [im, ii_im] = LoadIm(im_fname);
+% % Apply detector
+% ApplyDetector(Cparams, ii_im)
+% dets = ScanImageFixedSize(Cparams,ii_im);
+% DisplayDetections(im_fname, dets);
+% colormap gray;
 % 
+% % % ----------------------------------
+% % % Program 22 Debug
+% % % ----------------------------------
+% % 
 % % More robust check!
 % 
 % % Get the test images.
@@ -54,24 +65,20 @@ path = '../TestImages/one_chris.png';
 % Load the image
 [im, I] = LoadIm(path);
 
-
 % % Without pruning
 dets = ScanImageFixedSize(Cparams, I);
 DisplayDetections(path, dets);
 
-
 % Display the detected face with pruning
 fdets = PruneDetections(dets);
 DisplayDetections(path, fdets);
-% figure()
-% 
-% 
-% % Test ScanImageOverScale: Fucked!!!
-% im = '../TestImages/big_one_chris.png';
-% min_s = 0.1;
-% max_s = 1.0;
-% step_s = .06;
-% 
-% dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
-% DisplayDetections(im, dets);
+
+% Test ScanImageOverScale: Fucked!!!
+im = '../TestImages/big_one_chris.png';
+min_s = 0.1;
+max_s = 1.0;
+step_s = .06;
+
+dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
+DisplayDetections(im, dets);
 

@@ -17,14 +17,16 @@ for s = min_s:step_s:max_s
     s_fdets = PruneDetections(s_dets);
  
     for k = 1:size(s_fdets, 1)
-        s_fdets(k,1) = round(s_fdets(k,1) / sqrt(s));
-        s_fdets(k,2) = round(s_fdets(k,2) / sqrt(s));
-        s_fdets(k,3) = round(s_fdets(k,3) / sqrt(s));
-        s_fdets(k,4) = round(s_fdets(k,4) / sqrt(s));
+        s_fdets(k,1) = round(s_fdets(k,1) / (s));
+        s_fdets(k,2) = round(s_fdets(k,2) / (s));
+        s_fdets(k,3) = round(s_fdets(k,3) / (s));
+        s_fdets(k,4) = round(s_fdets(k,4) / (s));
     end
  
     dets = [dets; s_fdets];
  
 end
+
+% dets = PruneDetections(dets);
  
 end

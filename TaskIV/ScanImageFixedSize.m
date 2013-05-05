@@ -1,5 +1,5 @@
 function dets = ScanImageFixedSize(Cparams, ii_im)
-
+ 
 % %Read the image    
 % I = im;
 % 
@@ -13,8 +13,8 @@ function dets = ScanImageFixedSize(Cparams, ii_im)
 % 
 % % Integral Image.
 % ii_im = cumsum(cumsum(im,2));
-
-
+ 
+ 
 L = 19;
 [Y,X]=size(ii_im);
 % score vector
@@ -22,7 +22,7 @@ scs = [];
 dets = [];
 % Square the ii
 squared = ii_im.*ii_im;
-
+ 
 for x = 1:X-L+1
     for y = 1:Y-L+1
         sc=0;
@@ -52,9 +52,5 @@ for x = 1:X-L+1
 end
 % Debug
 %dets = scs;
+end
 
-<<<<<<< HEAD
-end
-=======
-end
->>>>>>> luis

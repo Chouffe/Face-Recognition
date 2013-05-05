@@ -2,16 +2,16 @@
 addpath('../TaskIII');
 addpath('../TaskII');
 addpath('../TaskI');
-
+ 
 % Program 20
-
+ 
 Cparams = load('../TaskIII/Cparams.mat');
-
+ 
 Cparams = Cparams.Cparams;
 % Fdata = load('FaceData.mat');
 % NFdata = load('NonFaceData.mat');
 % FTdata = load('FeaturesToUse.mat');
-
+ 
 % % ----------------------------------
 % % One file test
 % % ----------------------------------
@@ -54,31 +54,32 @@ Cparams = Cparams.Cparams;
 %     
 % end
 % sum(abs(scores_faces-new_scores_faces))
-
-
+ 
+ 
 % ----------------------------------
 % Program 23 Debug
 % ----------------------------------
 % Test ScanImageFixedSize
 path = '../TestImages/one_chris.png';
-
+ 
 % Load the image
 [im, I] = LoadIm(path);
-
+ 
 % % Without pruning
 dets = ScanImageFixedSize(Cparams, I);
 DisplayDetections(path, dets);
-
+ 
 % Display the detected face with pruning
 fdets = PruneDetections(dets);
 DisplayDetections(path, fdets);
-
+ 
 % Test ScanImageOverScale: Fucked!!!
 im = '../TestImages/big_one_chris.png';
 min_s = 0.1;
 max_s = 1.0;
 step_s = .06;
-
+ 
 dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
 DisplayDetections(im, dets);
+ 
 

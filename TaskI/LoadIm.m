@@ -2,10 +2,11 @@ function [im, ii_im]= LoadIm(im_fname)
 %Read the image    
 I = imread(im_fname);
 
-% Convert to grayscale if needed.
+% Convert to gray scale
 if size(I,3) == 3
     I = rgb2gray(I);
 end
+
 % Convert to double.
 I = double(I);
 

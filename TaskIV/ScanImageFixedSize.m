@@ -1,8 +1,8 @@
-function dets = ScanImageFixedSize(Cparams, ii_im)
+function dets = ScanImageFixedSize(Cparams, im)
  
-% %Read the image    
-% I = im;
-% 
+%Read the image    
+im = double(im);
+
 % u = mean(I(:));
 % o = std(I(:));
 % if (o~=0)
@@ -14,36 +14,43 @@ function dets = ScanImageFixedSize(Cparams, ii_im)
 % % Integral Image.
 % ii_im = cumsum(cumsum(im,2));
  
- 
 L = 19;
-[Y,X]=size(ii_im);
+mu = (1/L^2)*cumsum(cumsum(im,2));  
+% Square the ii
+squared = cumsum(cumsum(im.*im,2));
+
+[Y,X]=size(im);
 % score vector
 scs = [];
 dets = [];
-% Square the ii
-squared = ii_im.*ii_im;
+
 % just a test
-I = imread('../TestImages/one_chris.png');
-figure(); imagesc(I); axis equal;
+% I = imread('../TestImages/one_chris.png');
+% figure(); imagesc(I); axis equal;
 for x = 1:X-L+1
     for y = 1:Y-L+1
         sc=0;
+        vector = VecBoxSum(x,y,L,L,X,Y);
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
-        patch = ii_im(y:y+L-1,x:x+L-1);
+        patch = im(y:y+L-1,x:x+L-1);
         % Compute mean
-        mu = (1/L^2)*sum(sum(patch));        
-        sq = squared(y:y+L-1,x:x+L-1);
+        % Same as u = mean(patch(:))
+        u = mu(:)'*vector;       
         % Compute sigma
-        sigma = sqrt((1/ (L^2-1))*(sum(sum(sq)) - L^2*mu^2)); 
+        % Same as o = std(patch(:))
+        o = sqrt((1/ (L^2-1))*(squared(:)'*vector - L^2*u^2));
         % -------------------------------------
         % Normalize the patch
-        Norm_patch = (patch-mu)/sigma;
+        Norm_patch = (patch-u)/o;
+        % Integral Image
+        ii_im = cumsum(cumsum(Norm_patch,2));
         % Apply detector taking into account sigma, and mu*w*h        
-        sc = ApplyDetectorM(Cparams,Norm_patch,sigma,mu*L^2);
+        sc = ApplyDetector(Cparams,ii_im);
         % Is it a face?
-%         % For debug.  
+        % For debug.
+%         sc
 %         if (sc>6.5) 
 %             if sc>Cparams.thresh
 %                     rectangle('Position',[x, y, L, L],'EdgeColor', 'r');
@@ -55,12 +62,12 @@ for x = 1:X-L+1
         if (sc>Cparams.thresh)
           % Keep it as a face  
           % Debug          
+          %dets = sc;
           %scs = [scs;sc];
+          sc;
           dets = [dets;[x,y,L,L]];
         end 
     end
 end
-% Debug
-%dets = scs;
 end
 

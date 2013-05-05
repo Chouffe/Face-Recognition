@@ -2,7 +2,8 @@ function fdets = PruneDetections(dets)
     
 nd = size(dets,1);
 D = zeros(nd, nd);
- 
+
+% Find the overlaping regions.
 for i = 1:nd
  
     xi = dets(i, 1);
@@ -26,22 +27,25 @@ for i = 1:nd
     end
 end
  
+% Find the connected components.
 [S, C] = graphconncomp(sparse(D));
  
 fdets = zeros(S, 4);
 total = zeros(S);
  
+% Get the sum of all the components.
 for k = 1:length(C)
  
     total(C(k)) = total(C(k)) + 1;
  
-    fdets(C(k), 1) = fdets(C(k), 1) + dets(C(k), 1);
-    fdets(C(k), 2) = fdets(C(k), 2) + dets(C(k), 2);
-    fdets(C(k), 3) = fdets(C(k), 3) + dets(C(k), 3);
-    fdets(C(k), 4) = fdets(C(k), 4) + dets(C(k), 4);
+    fdets(C(k), 1) = fdets(C(k), 1) + dets(k, 1);
+    fdets(C(k), 2) = fdets(C(k), 2) + dets(k, 2);
+    fdets(C(k), 3) = fdets(C(k), 3) + dets(k, 3);
+    fdets(C(k), 4) = fdets(C(k), 4) + dets(k, 4);
     
 end
  
+% Do the average
 for l = 1:S
     for m = 1:4
         fdets(l,m) = fdets(l,m) / total(l);

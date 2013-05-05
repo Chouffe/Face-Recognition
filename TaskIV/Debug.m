@@ -19,14 +19,19 @@ Cparams = Cparams.Cparams;
 % [im, ii_im] = LoadIm(im_fname);
 % % Apply detector
 % ApplyDetector(Cparams, ii_im)
-% dets = ScanImageFixedSize(Cparams,ii_im);
+% image = imread(im_fname);
+% % Convert to grayscale if needed.
+% if size(image,3) == 3
+%     image = rgb2gray(image);
+% end
+% dets = ScanImageFixedSize(Cparams,image);
 % DisplayDetections(im_fname, dets);
 % colormap gray;
 % 
-% % % ----------------------------------
-% % % Program 22 Debug
-% % % ----------------------------------
-% % 
+% % ----------------------------------
+% % Program 22 Debug
+% % ----------------------------------
+% 
 % % More robust check!
 % 
 % % Get the test images.
@@ -46,40 +51,47 @@ Cparams = Cparams.Cparams;
 %     % ----------------
 %     % Load data
 %     % ----------------
-%     [im, ii_im] = LoadIm(im_fname);
-%     
+%     im = imread(im_fname);
+%     [dummy, ii_im] = LoadIm(im_fname);
 %     % Apply detector
 %     scores_faces(i) = ApplyDetector(Cparams, ii_im);
-%     new_scores_faces(i) = ScanImageFixedSize(Cparams,ii_im);
+%     new_scores_faces(i) = ScanImageFixedSize(Cparams,im);
 %     
 % end
 % sum(abs(scores_faces-new_scores_faces))
  
  
-% ----------------------------------
-% Program 23 Debug
-% ----------------------------------
-% Test ScanImageFixedSize
-path = '../TestImages/one_chris.png';
- 
-% Load the image
-[im, I] = LoadIm(path);
- 
-% % Without pruning
-dets = ScanImageFixedSize(Cparams, I);
-DisplayDetections(path, dets);
- 
-% Display the detected face with pruning
-fdets = PruneDetections(dets);
-DisplayDetections(path, fdets);
- 
-% % Test ScanImageOverScale: Fucked!!!
-% im = '../TestImages/big_one_chris.png';
-% min_s = 0.1;
-% max_s = 1.0;
-% step_s = .06;
+% % ----------------------------------
+% % Program 23 Debug
+% % ----------------------------------
+% % Test ScanImageFixedSize
+% path = '../TestImages/one_chris.png';
 %  
-% dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
-% DisplayDetections(im, dets);
+% % Load the image
+% I = imread(path);
+% % Convert to grayscale if needed.
+% if size(I,3) == 3
+%     I = rgb2gray(I);
+% end
+%  
+% % Without pruning
+% dets = ScanImageFixedSize(Cparams, I);
+% DisplayDetections(path, dets);
+% 
+%  
+% % Display the detected face with pruning
+% fdets = PruneDetections(dets);
+% DisplayDetections(path, fdets);
+
+% ----------------------------------
+% Program 24 Debug
+% ----------------------------------
+im = '../TestImages/big_one_chris.png';
+min_s = 0.1;
+max_s = 1.0;
+step_s = .06;
+ 
+dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
+DisplayDetections(im, dets);
  
 

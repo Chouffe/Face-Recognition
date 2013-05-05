@@ -80,6 +80,6 @@ max_s = 1.0;
 step_s = .06;
  
 dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
-DisplayDetections(im, dets);
+%DisplayDetections(im, dets);
  
 

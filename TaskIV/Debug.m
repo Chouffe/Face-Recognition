@@ -80,7 +80,7 @@ DisplayDetections(path, dets);
 
  
 % Display the detected face with pruning
-fdets = PruneDetections(dets);
+fdets = PruneDetections(dets, .5);
 DisplayDetections(path, fdets);
 
 
@@ -98,7 +98,7 @@ step_s = .06;
  
 dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
 DisplayDetections(im, dets);
-dets = PruneDetections(dets);
+dets = PruneDetections(dets, .5);
 DisplayDetections(im, dets);
  
 profile viewer

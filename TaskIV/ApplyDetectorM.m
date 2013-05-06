@@ -4,21 +4,21 @@ function sc = ApplyDetectorM(Cparams, ii_im,sigma,u)
 	for t = 1:length(Cparams.alphas)
 		
         % Get w and h from the feature.
-        w = Cparams.all_ftypes(t,4);
-        h = Cparams.all_ftypes(t,5);   
+        w = Cparams.all_ftypes(Cparams.Thetas(t,1),4);        
+        h = Cparams.all_ftypes(Cparams.Thetas(t,1),5);
         
         % Get the type of feature.
         type = Cparams.all_ftypes(Cparams.Thetas(t,1),1);
         
         % Feature response                    
-        % It changes for F type III
-        f = ( ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(t,1)) ) / sigma;            
-%         switch type
-%             case 3                        
-%                 f = ( ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(t,1) ) + u*w*h) / sigma;                   
-%             otherwise
-%                 f = ( ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(t,1)) ) / sigma;            
-%          end
+        % It changes for F type III          
+        switch type
+            case 3              
+                feature = ( Cparams.fmat(:,Cparams.Thetas(t,1))  + u*w*h ) / sigma;
+                f = ii_im(:)' * ( feature );                                
+            otherwise
+                f =  ii_im(:)' * ( Cparams.fmat(:,Cparams.Thetas(t,1)) / sigma) ;
+         end
 		% Parity
         p = Cparams.Thetas(t,3);
         % threshold

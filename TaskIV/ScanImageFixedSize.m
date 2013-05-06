@@ -3,14 +3,6 @@ function dets = ScanImageFixedSize(Cparams, im)
 %Read the image    
 im = double(im);
 
-% u = mean(I(:));
-% o = std(I(:));
-% if (o~=0)
-%     im = (I-u)/o;
-% else
-%     im = I;
-% end
-% 
 % Integral Image.
 ii_im = cumsum(cumsum(im,2));
  
@@ -20,13 +12,8 @@ mu = (1/L^2)*cumsum(cumsum(im,2));
 squared = cumsum(cumsum(im.*im,2));
 
 [Y,X]=size(im);
-% score vector
-%scs = [];
 dets = [];
 
-% just a test
-% I = imread('../TestImages/one_chris.png');
-% figure(); imagesc(I); axis equal;
 for x = 1:X-L+1
     for y = 1:Y-L+1
         
@@ -35,54 +22,15 @@ for x = 1:X-L+1
         % Normalize the box
         % -------------------------------------
         patch = ii_im(y:y+L-1,x:x+L-1);
-        % Compute mean
-        
-        % Same as u = mean(im_pat(:))
-        % im_pat = im(y:y+L-1,x:x+L-1);        
+        % Compute mean      
         u = mu(:)'*vector;
-        % Compute sigma
-        % Same as o = std(im_pat(:))
-        o = sqrt((1/ (L^2-1))*(squared(:)'*vector - L^2*u^2));
-        % -------------------------------------
-        % Normalize the patch
-        % Norm_patch = (patch-u)/o;
-        % Integral Image
-        % ii_im = cumsum(cumsum(Norm_patch,2));
-        
-        % *******************************------------------------------------- 
-        % Apply detector taking into account sigma, and mu*w*h        
-        % sc = ApplyDetector(Cparams,ii_im);
+        % Compute sigma        
+        o = sqrt((1/ (L^2-1))*(squared(:)'*vector - L^2*u^2));        
+        % *******************************-------------------------------------                
         sc = ApplyDetectorM(Cparams,patch,o,u);
-        %sc = ApplyDetector(Cparams,ii_im)       
-%     % *******************************------------------------------------- 
-%     sc = 0;
-%         for t = 1:length(Cparams.alphas)
-% 		% Feature response
-%         f = ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(t,1));
-% 		% Parity
-%         p = Cparams.Thetas(t,3);
-%         % threshold
-% 		theta = Cparams.Thetas(t,2);
-%         % score
-% 		sc = sc + Cparams.alphas(t) * (p.*f < p*theta);
-%         end
-%     % *******************************------------------------------------- 
         % Is it a face?
-        % For debug.
-%         sc
-%         if (sc>6.5) 
-%             if sc>Cparams.thresh
-%                     rectangle('Position',[x, y, L, L],'EdgeColor', 'r');
-%             else 
-%                     rectangle('Position',[x, y, L, L],'EdgeColor', 'b');
-%             end
-%         drawnow;
-%         sc
         if (sc>Cparams.thresh)
           % Keep it as a face  
-          % Debug          
-          %dets = sc;
-          %scs = [scs;sc];
           dets = [dets;[x,y,L,L]];
         end 
     end

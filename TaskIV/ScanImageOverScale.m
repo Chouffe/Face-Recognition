@@ -1,5 +1,6 @@
 function dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s)
  
+percent = .5;
 % Image processing
 I = imread(im);
 if size(I,3) == 3
@@ -16,7 +17,8 @@ for s = min_s:step_s:max_s
     % Search for faces on the scaled image
     s_dets = ScanImageFixedSize(Cparams, scaled_im);
     % Prune the faces
-    s_fdets = PruneDetections(s_dets);
+    s_fdets = s_dets;
+    % s_fdets = PruneDetections(s_dets);
  
     % Rescale the results.
     for k = 1:size(s_fdets, 1)
@@ -29,5 +31,6 @@ for s = min_s:step_s:max_s
     dets = [dets; s_fdets];
  
 end
-%dets = PruneDetections(dets);
+
+dets = PruneDetections(dets, percent);
 end

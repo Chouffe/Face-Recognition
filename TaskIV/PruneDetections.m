@@ -1,4 +1,4 @@
-function fdets = PruneDetections(dets)
+function fdets = PruneDetections(dets, percent)
     
 nd = size(dets,1);
 D = zeros(nd, nd);
@@ -20,7 +20,8 @@ for i = 1:nd
         hj = dets(j, 4);
         B = [xj, yj, wj, hj];
  
-        if rectint(A, B)
+        C = min([A(3) * A(4), B(3) * B(4)]);
+        if rectint(A, B) > percent * C
             D(i, j) = 1;
         end
  

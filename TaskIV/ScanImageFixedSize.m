@@ -21,7 +21,7 @@ squared = cumsum(cumsum(im.*im,2));
 
 [Y,X]=size(im);
 % score vector
-scs = [];
+%scs = [];
 dets = [];
 
 % just a test
@@ -29,7 +29,7 @@ dets = [];
 % figure(); imagesc(I); axis equal;
 for x = 1:X-L+1
     for y = 1:Y-L+1
-        sc=0;
+        
         vector = VecBoxSumSparse(x,y,L,L,X,Y);
         % -------------------------------------
         % Normalize the box
@@ -46,8 +46,23 @@ for x = 1:X-L+1
         Norm_patch = (patch-u)/o;
         % Integral Image
         ii_im = cumsum(cumsum(Norm_patch,2));
+        
+        % *******************************------------------------------------- 
         % Apply detector taking into account sigma, and mu*w*h        
-        sc = ApplyDetector(Cparams,ii_im);
+        % sc = ApplyDetector(Cparams,ii_im);
+    % *******************************------------------------------------- 
+    sc = 0;
+        for t = 1:length(Cparams.alphas)
+		% Feature response
+        f = ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(t,1));
+		% Parity
+        p = Cparams.Thetas(t,3);
+        % threshold
+		theta = Cparams.Thetas(t,2);
+        % score
+		sc = sc + Cparams.alphas(t) * (p.*f < p*theta);
+        end
+    % *******************************------------------------------------- 
         % Is it a face?
         % For debug.
 %         sc
@@ -64,7 +79,6 @@ for x = 1:X-L+1
           % Debug          
           %dets = sc;
           %scs = [scs;sc];
-          sc;
           dets = [dets;[x,y,L,L]];
         end 
     end

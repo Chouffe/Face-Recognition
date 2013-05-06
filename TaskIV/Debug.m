@@ -83,6 +83,11 @@ DisplayDetections(path, dets);
 fdets = PruneDetections(dets);
 DisplayDetections(path, fdets);
 
+
+% Profile 
+profile on -history
+% Get Cparams
+
 % ----------------------------------
 % Program 24 Debug
 % ----------------------------------
@@ -96,4 +101,10 @@ DisplayDetections(im, dets);
 dets = PruneDetections(dets);
 DisplayDetections(im, dets);
  
+profile viewer
+p = profile('info');
+save myprofiledata p
+clear p
+load myprofiledata
+profview(0,p)
 

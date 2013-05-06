@@ -8,13 +8,13 @@ h = ftype(5);
 % Similar to FeatureTypeI, II, III and IV.
 switch type
     case 1
-        ftype_vec = VecBoxSum(x,y,w,h,W,H) - VecBoxSum(x,y+h,w,h,W,H);        
+        ftype_vec = VecBoxSumSparse(x,y,w,h,W,H) - VecBoxSumSparse(x,y+h,w,h,W,H);        
     case 2
-        ftype_vec = VecBoxSum(x+w,y,w,h,W,H)-VecBoxSum(x,y,w,h,W,H);
+        ftype_vec = VecBoxSumSparse(x+w,y,w,h,W,H)-VecBoxSumSparse(x,y,w,h,W,H);
     case 3
-        ftype_vec = VecBoxSum(x+w,y,w,h,W,H) - VecBoxSum(x+2*w,y,w,h,W,H) - VecBoxSum(x,y,w,h,W,H);
+        ftype_vec = VecBoxSumSparse(x+w,y,w,h,W,H) - VecBoxSumSparse(x+2*w,y,w,h,W,H) - VecBoxSumSparse(x,y,w,h,W,H);
     case 4
-        f = VecBoxSum(x,y+h,w,h,W,H) + VecBoxSum(x+w,y,w,h,W,H);
-        ftype_vec = f - VecBoxSum(x+w,y+h,w,h,W,H) - VecBoxSum(x,y,w,h,W,H);        
+        f = VecBoxSumSparse(x,y+h,w,h,W,H) + VecBoxSumSparse(x+w,y,w,h,W,H);
+        ftype_vec = f - VecBoxSumSparse(x+w,y+h,w,h,W,H) - VecBoxSumSparse(x,y,w,h,W,H);        
 end
 end

@@ -11,9 +11,12 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 	% Initialize weights
 	w(1,1:p) = (2*p)^-1;
 	w(1,p+1:p+m) = (2*m)^-1;
-    nf = size(Fdata.fnums,2);
-    nNf = size(NFdata.fnums,2);
-    feat_j = zeros(nf+nNf,1);
+%     nf = size(Fdata.fnums,2);
+%     nNf = size(NFdata.fnums,2);
+    % feat_j = zeros(nf+nNf,1);
+%     feat_j = spalloc(nf+nNf,1,nf+nNf);
+%     feat_j1 = spalloc(nf,1,nf);
+%     feat_j2 = spalloc(nNf,1,nNf);
 	for t = 1:T
 
 		% Normalize weights
@@ -27,11 +30,37 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 		for j = 1:size(FTdata.fmat, 2)
             % Fdata.ii_ims*Fdata.fmat(:,j) similar to
             % VecComputeFeature(ii_ims, fmat(:,j).
-			feat_j(1:nf) = Fdata.ii_ims * FTdata.fmat(:,j);
-            feat_j(nf+1:nf+nNf) = NFdata.ii_ims * FTdata.fmat(:,j);
+			%feat_j(1:nf) = Fdata.ii_ims * FTdata.fmat(:,j);
+            %feat_j1 = 
+            %feat_j(nf+1:nf+nNf) = NFdata.ii_ims * FTdata.fmat(:,j);
+            %feat_j2 = ;
+            feat_j = [Fdata.ii_ims * FTdata.fmat(:,j);NFdata.ii_ims * FTdata.fmat(:,j)];
+            % -------------------------------------------------------
+            % Fkn LearnWeakClassifier
+            % -------------------------------------------------------
+            
             % Train the classifier.
-			[theta, p, err] = LearnWeakClassifier(w(t,:),feat_j',ys);
+			% [theta, p, err] = LearnWeakClassifier(w(t,:),feat_j',ys);
+            
+    %function [theta, p, err] = LearnWeakClassifier(ws, fs, ys)
+    a = w(t,:) .* ys;
+    b = w(t,:) .* (1-ys);
+	mu_p = sum(a .* feat_j') / sum(a);
+	mu_n = sum(b .* feat_j') / sum(b);
 
+	theta = .5 * (mu_p + mu_n);
+
+    % p = -1
+	errs(1) = sum(w(t,:) .* abs(ys - (-1.*feat_j' < -theta)));
+    % p = 1
+	errs(2) = sum(w(t,:) .* abs(ys - (1.*feat_j' < theta)));
+
+	[err, ind] = min(errs);
+
+	p = sign(ind - 1.1);  
+
+            % -------------------------------------------------------
+            
 			% Update parameters of optimal feature if necessary
 			if j == 1
 				lowestErr = err;

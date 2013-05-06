@@ -30,7 +30,7 @@ dets = [];
 for x = 1:X-L+1
     for y = 1:Y-L+1
         sc=0;
-        vector = VecBoxSum(x,y,L,L,X,Y);
+        vector = VecBoxSumSparse(x,y,L,L,X,Y);
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
@@ -59,7 +59,7 @@ for x = 1:X-L+1
 %             end
 %         drawnow;
 %         sc
-        if (sc>8)%Cparams.thresh)
+        if (sc>Cparams.thresh)
           % Keep it as a face  
           % Debug          
           %dets = sc;

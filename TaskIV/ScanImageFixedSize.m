@@ -11,8 +11,8 @@ im = double(im);
 %     im = I;
 % end
 % 
-% % Integral Image.
-% ii_im = cumsum(cumsum(im,2));
+% Integral Image.
+ii_im = cumsum(cumsum(im,2));
  
 L = 19;
 mu = (1/L^2)*cumsum(cumsum(im,2));  
@@ -34,35 +34,39 @@ for x = 1:X-L+1
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
-        patch = im(y:y+L-1,x:x+L-1);
+        patch = ii_im(y:y+L-1,x:x+L-1);
         % Compute mean
-        % Same as u = mean(patch(:))
-        u = mu(:)'*vector;       
+        
+        % Same as u = mean(im_pat(:))
+        % im_pat = im(y:y+L-1,x:x+L-1);        
+        u = mu(:)'*vector;
         % Compute sigma
-        % Same as o = std(patch(:))
+        % Same as o = std(im_pat(:))
         o = sqrt((1/ (L^2-1))*(squared(:)'*vector - L^2*u^2));
         % -------------------------------------
         % Normalize the patch
-        Norm_patch = (patch-u)/o;
+        % Norm_patch = (patch-u)/o;
         % Integral Image
-        ii_im = cumsum(cumsum(Norm_patch,2));
+        % ii_im = cumsum(cumsum(Norm_patch,2));
         
         % *******************************------------------------------------- 
         % Apply detector taking into account sigma, and mu*w*h        
         % sc = ApplyDetector(Cparams,ii_im);
-    % *******************************------------------------------------- 
-    sc = 0;
-        for t = 1:length(Cparams.alphas)
-		% Feature response
-        f = ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(t,1));
-		% Parity
-        p = Cparams.Thetas(t,3);
-        % threshold
-		theta = Cparams.Thetas(t,2);
-        % score
-		sc = sc + Cparams.alphas(t) * (p.*f < p*theta);
-        end
-    % *******************************------------------------------------- 
+        sc = ApplyDetectorM(Cparams,patch,o,u);
+        %sc = ApplyDetector(Cparams,ii_im)       
+%     % *******************************------------------------------------- 
+%     sc = 0;
+%         for t = 1:length(Cparams.alphas)
+% 		% Feature response
+%         f = ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(t,1));
+% 		% Parity
+%         p = Cparams.Thetas(t,3);
+%         % threshold
+% 		theta = Cparams.Thetas(t,2);
+%         % score
+% 		sc = sc + Cparams.alphas(t) * (p.*f < p*theta);
+%         end
+%     % *******************************------------------------------------- 
         % Is it a face?
         % For debug.
 %         sc

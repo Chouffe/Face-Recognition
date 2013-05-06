@@ -77,17 +77,17 @@ end
 % Without pruning
 dets = ScanImageFixedSize(Cparams, I);
 DisplayDetections(path, dets);
-
- 
-% Display the detected face with pruning
-fdets = PruneDetections(dets);
-DisplayDetections(path, fdets);
-
-
-% Profile 
-profile on -history
-% Get Cparams
-
+% 
+%  
+% % Display the detected face with pruning
+% fdets = PruneDetections(dets);
+% DisplayDetections(path, fdets);
+% 
+% 
+% % Profile 
+% profile on -history
+% % Get Cparams
+% 
 % ----------------------------------
 % Program 24 Debug
 % ----------------------------------

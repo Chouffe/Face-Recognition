@@ -65,23 +65,23 @@ Cparams = Cparams.Cparams;
 % % Program 23 Debug
 % % ----------------------------------
 % % Test ScanImageFixedSize
-path = '../TestImages/one_chris.png';
- 
-% Load the image
-I = imread(path);
-% Convert to grayscale if needed.
-if size(I,3) == 3
-    I = rgb2gray(I);
-end
- 
-% Without pruning
-dets = ScanImageFixedSize(Cparams, I);
-DisplayDetections(path, dets);
-% 
+% path = '../TestImages/one_chris.png';
 %  
-% Display the detected face with pruning
-fdets = PruneDetections(dets,0.5);
-DisplayDetections(path, fdets);
+% % Load the image
+% I = imread(path);
+% % Convert to grayscale if needed.
+% if size(I,3) == 3
+%     I = rgb2gray(I);
+% end
+%  
+% % Without pruning
+% dets = ScanImageFixedSize(Cparams, I);
+% DisplayDetections(path, dets);
+% % 
+% %  
+% % Display the detected face with pruning
+% fdets = PruneDetections(dets,0.5);
+% DisplayDetections(path, fdets);
 % 
 % 
 % % Profile 
@@ -89,23 +89,23 @@ DisplayDetections(path, fdets);
 % % Get Cparams
 % 
 
-% % ----------------------------------
-% % Program 24 Debug
-% % ----------------------------------
-% im = '../TestImages/big_one_chris.png';
-% min_s = 0.6;
-% max_s = 1.3;
-% step_s = .06;
-%  
-% dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
-% DisplayDetections(im, dets);
-% dets = PruneDetections(dets, .5);
-% DisplayDetections(im, dets);
-%  
-% profile viewer
-% p = profile('info');
-% save myprofiledata p
-% clear p
-% load myprofiledata
-% profview(0,p)
+% ----------------------------------
+% Program 24 Debug
+% ----------------------------------
+im = '../TestImages/one_chris.png';
+min_s = 0.6;
+max_s = 1.3;
+step_s = .06;
+ 
+dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
+DisplayDetections(im, dets);
+dets = PruneDetections(dets, .5);
+DisplayDetections(im, dets);
+ 
+profile viewer
+p = profile('info');
+save myprofiledata p
+clear p
+load myprofiledata
+profview(0,p)
 

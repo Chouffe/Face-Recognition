@@ -11,14 +11,12 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 	% Initialize weights
 	w(1,1:p) = (2*p)^-1;
 	w(1,p+1:p+m) = (2*m)^-1;
-%     nf = size(Fdata.fnums,2);
-%     nNf = size(NFdata.fnums,2);
-    % feat_j = zeros(nf+nNf,1);
-%     feat_j = spalloc(nf+nNf,1,nf+nNf);
-%     feat_j1 = spalloc(nf,1,nf);
-%     feat_j2 = spalloc(nNf,1,nNf);
-	for t = 1:T
-
+    % Efficient way
+        for j = 1:size(FTdata.fmat, 2)
+            feat_j = [Fdata.ii_ims * FTdata.fmat(:,j);NFdata.ii_ims * FTdata.fmat(:,j)];
+        end
+        
+    for t = 1:T
 		% Normalize weights
 		w(t,:) = w(t,:) / sum(w(t,:));
 
@@ -28,20 +26,9 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 		par = 0;
 		response = [];
 		for j = 1:size(FTdata.fmat, 2)
-            % Fdata.ii_ims*Fdata.fmat(:,j) similar to
-            % VecComputeFeature(ii_ims, fmat(:,j).
-			%feat_j(1:nf) = Fdata.ii_ims * FTdata.fmat(:,j);
-            %feat_j1 = 
-            %feat_j(nf+1:nf+nNf) = NFdata.ii_ims * FTdata.fmat(:,j);
-            %feat_j2 = ;
-            feat_j = [Fdata.ii_ims * FTdata.fmat(:,j);NFdata.ii_ims * FTdata.fmat(:,j)];
-            % -------------------------------------------------------
-            % Fkn LearnWeakClassifier
-            % -------------------------------------------------------
-            
-            % Train the classifier.
-			% [theta, p, err] = LearnWeakClassifier(w(t,:),feat_j',ys);
-            
+% -------------------------------------------------------
+% Fkn LearnWeakClassifier
+% -------------------------------------------------------                        
     %function [theta, p, err] = LearnWeakClassifier(ws, fs, ys)
     a = w(t,:) .* ys;
     b = w(t,:) .* (1-ys);
@@ -59,7 +46,7 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 
 	p = sign(ind - 1.1);  
 
-            % -------------------------------------------------------
+% -------------------------------------------------------
             
 			% Update parameters of optimal feature if necessary
 			if j == 1
@@ -76,8 +63,8 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 					par = p;
 					response = feat_j;
 				end
-			end
-		end
+            end
+        end
 
 		% Set optimal parameters to the parameters of this iteration
 		Cparams.Thetas(t,1) = feature; 

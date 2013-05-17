@@ -24,11 +24,11 @@ function sc = ApplyDetectorM(Cparams, ii_im,sigma,u)
         % threshold
 		theta = Cparams.Thetas(t,2);
         % score
-		sc = sc + Cparams.alphas(t) * classifier(f,p,theta);
+		sc = sc + Cparams.alphas(t) * (p.*f < p*theta);
 	end
 end
 
-% Weak classifier.
-function cls = classifier(f,p,theta)
-	cls = p.*f < p*theta;
-end
+% % Weak classifier.
+% function cls = classifier(f,p,theta)
+% 	cls = p.*f < p*theta;
+% end

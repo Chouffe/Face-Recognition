@@ -36,6 +36,6 @@ min_s = 0.6;
 max_s = 1.4;
 step_s = .06;
  
-dets = ScanImageOverScale(C100, im, min_s, max_s, step_s);
+dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
 DisplayDetections(im, dets);
  

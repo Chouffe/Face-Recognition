@@ -1,4 +1,4 @@
-function [scimages, dets] = ScanImageOverScale(Cparams, im, min_s, max_s, step_s, scimages)
+function [scimages, dets] = ScanImageOverScale(Cparams, im, min_s, max_s, step_s, scimages, classifier_index)
  
 percent = .5;
 % Image processing
@@ -10,7 +10,7 @@ I = double(I);
  
  
 % Scale
-sc = 1
+sc = 1;
 dets = [];
  
 for s = min_s:step_s:max_s
@@ -19,7 +19,7 @@ for s = min_s:step_s:max_s
     
     % Search for faces on the scaled image
     % scimages = Integral images
-    [scimages{sc}, s_dets] = ScanImageFixedSize(Cparams, scaled_im);
+    [scimages{sc}, s_dets] = ScanImageFixedSize(Cparams, scaled_im, classifier_index );
     % Prune the faces
     s_fdets = s_dets;
     % s_fdets = PruneDetections(s_dets);

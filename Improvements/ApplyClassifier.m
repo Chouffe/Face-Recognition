@@ -8,8 +8,9 @@ function dets = ApplyClassifier(in_dets, scimages, Cparams, classifier_index)
         ii_im = scimages{s};
         X = size(ii_im,2);
         Y = size(ii_im,1);
-        x = in_dets(i, 1)-0.5;
-        y = in_dets(i, 2)-0.5;
+        
+        x = in_dets(i, 1);
+        y = in_dets(i, 2);
         w = in_dets(i, 3);
         h = in_dets(i, 4);
         L = w;
@@ -48,7 +49,6 @@ function dets = ApplyClassifier(in_dets, scimages, Cparams, classifier_index)
             if (sc>Cparams.thresh(classifier_index))
               % Keep it as a face  
               dets = [dets;[x,y,L,L,mu,o,s]];
-            end 
-        end
+            end         
     end
 end

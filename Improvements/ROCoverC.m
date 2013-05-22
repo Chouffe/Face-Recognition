@@ -13,7 +13,6 @@ p = length(Fdata.fnums);
 % Threshold vector
 thresh = zeros(1,C);    
 
-counter = 1;
 nscores = zeros(1,n);
 pscores = zeros(1,p);
 
@@ -32,11 +31,11 @@ for c = 1:C
     	% Feature response
         f = ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(c,1));
 		% Parity
-        p = Cparams.Thetas(c,3);
+        par = Cparams.Thetas(c,3);
         % threshold
 		theta = Cparams.Thetas(c,2);
         % score
-		pscores(i) = pscores(i) + Cparams.alphas(c) * (p.*f < p*theta)
+		pscores(i) = pscores(i) + Cparams.alphas(c) * (par.*f < par*theta)
     % -------------------------------------------------------
     end
     
@@ -49,11 +48,11 @@ for c = 1:C
     	% Feature response
         f = ii_im(:)' * Cparams.fmat(:,Cparams.Thetas(c,1));
 		% Parity
-        p = Cparams.Thetas(c,3);
+        par = Cparams.Thetas(c,3);
         % threshold
 		theta = Cparams.Thetas(c,2);
         % score
-		nscores(i) = nscores(i) + Cparams.alphas(c) * (p.*f < p*theta);
+		nscores(i) = nscores(i) + Cparams.alphas(c) * (par.*f < par*theta);
     % -------------------------------------------------------
     end
        
@@ -75,12 +74,13 @@ for c = 1:C
         % Update i
         i=i+1;    
     end
-    if (mod(c,10)==0)        
-        figure()
-        plot(fpr(c,:),tpr(c,:))
-        xlabel('fpr')
-        ylabel('tpr')
-        axis([-0.01,1,0,1.01])
-    end    
+
+  %  if (mod(c,10)==0)        
+  %      figure()
+  %      plot(fpr(c,:),tpr(c,:))
+  %      xlabel('fpr')
+  %      ylabel('tpr')
+  %      axis([-0.01,1,0,1.01])
+  %  end    
     
 end

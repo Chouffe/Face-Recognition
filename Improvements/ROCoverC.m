@@ -35,7 +35,7 @@ for c = 1:C
         % threshold
 		theta = Cparams.Thetas(c,2);
         % score
-		pscores(i) = pscores(i) + Cparams.alphas(c) * (par.*f < par*theta)
+		pscores(i) = pscores(i) + Cparams.alphas(c) * (par.*f < par*theta);
     % -------------------------------------------------------
     end
     

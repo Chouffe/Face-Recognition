@@ -32,5 +32,5 @@ for s = min_s:step_s:max_s
  
 end
 
-dets = PruneDetections(dets, percent);
+%dets = PruneDetections(dets, percent);
 end

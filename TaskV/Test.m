@@ -4,6 +4,7 @@
 % Test ScanImageFixedSize
 path = '../TestImages/one_chris.png';
 addpath('../TaskIV/');
+addpath('../TaskI/');
  
 
  
@@ -29,11 +30,12 @@ Cparams = Cparams.Cparams;
 % Program 24 Debug
 % ----------------------------------
 %im = '../TestImages/IMG_0197.jpg';
-im = '../TestImages/many_faces.jpg';
-min_s = 1.3;
+%im = '../TestImages/many_faces.jpg';
+im = path;
+min_s = 0.6;
 max_s = 1.4;
-step_s = .1;
+step_s = .06;
  
-dets = ScanImageOverScale(Cparams, im, min_s, max_s, step_s);
+dets = ScanImageOverScale(C100, im, min_s, max_s, step_s);
 DisplayDetections(im, dets);
  

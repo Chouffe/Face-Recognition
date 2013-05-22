@@ -67,10 +67,11 @@ for thresh = thresholds
     
     
 end
-plot(fpr,tpr)
-xlabel('fpr')
-ylabel('tpr')
-axis([-0.01,1,0,1.01])
+
+% plot(fpr,tpr)
+% xlabel('fpr')
+% ylabel('tpr')
+% axis([-0.01,1,0,1.01])
 
 % % Debug for tpr
 % figure()
@@ -81,7 +82,10 @@ axis([-0.01,1,0,1.01])
 % hold off
 % legend('True positive rate', 'False positive rate')
 
-
-thresh = thresholds(find(tpr < 0.7,1)-1);
+a = find(tpr < 0.7,1)-1;
+if (isempty(a))
+    a = find(tpr > 0.7,1);
+end
+thresh = thresholds(a);
 
 end

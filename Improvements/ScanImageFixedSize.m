@@ -17,7 +17,7 @@ dets = [];
 for x = 1:X-L+1
     for y = 1:Y-L+1
         
-        vector = VecBoxSumSparse(x,y,L,L,X,Y);
+        vector = VecBoxSumAld(x,y,L,L,X,Y);
         % -------------------------------------
         % Normalize the box
         % -------------------------------------

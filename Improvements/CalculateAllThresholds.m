@@ -17,6 +17,6 @@ for i = 1:100
     
     % Get the thresh
     thresh(i) = ComputeROC(Cparams,Fdata,NFdata);
-    i
+    i;
     
 end

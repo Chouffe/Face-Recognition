@@ -1,4 +1,4 @@
-function dets = ScanImageFixedSize(Cparams, im)
+function [ii_im, dets] = ScanImageFixedSize(Cparams, im)
  
 %Read the image    
 im = double(im);
@@ -59,7 +59,7 @@ for x = 1:X-L+1
         % Is it a face?
         if (sc>Cparams.thresh)
           % Keep it as a face  
-          dets = [dets;[x,y,L,L]];
+          dets = [dets;[x,y,L,L,mu,o]];
         end 
     end
 end

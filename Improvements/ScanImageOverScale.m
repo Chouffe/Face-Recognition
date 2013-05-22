@@ -24,12 +24,12 @@ for s = min_s:step_s:max_s
     % s_fdets = PruneDetections(s_dets);
  
     % Rescale the results.
-    for k = 1:size(s_fdets, 1)
-        s_fdets(k,1) = round(s_fdets(k,1) / (s));
-        s_fdets(k,2) = round(s_fdets(k,2) / (s));
-        s_fdets(k,3) = round(s_fdets(k,3) / (s));
-        s_fdets(k,4) = round(s_fdets(k,4) / (s));
-    end
+   % for k = 1:size(s_fdets, 1)
+   %     s_fdets(k,1) = floor(s_fdets(k,1) / (s));
+   %     s_fdets(k,2) = floor(s_fdets(k,2) / (s));
+   %     s_fdets(k,3) = floor(s_fdets(k,3) / (s));
+   %     s_fdets(k,4) = floor(s_fdets(k,4) / (s));
+   % end
     sc_vector = ones(size(s_fdets,1),1) * sc;
  
     dets = [dets; s_fdets, sc_vector];

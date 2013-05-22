@@ -11,9 +11,7 @@ function dets = ApplyClassifier(in_dets, scimages, Cparams, classifier_index)
         
         x = in_dets(i, 1);
         y = in_dets(i, 2);
-        w = in_dets(i, 3);
-        h = in_dets(i, 4);
-        L = w;
+        L = 19;
         u = in_dets(i,5);
         o = in_dets(i,6);
         patch = ii_im(y:y+L-1,x:x+L-1);
@@ -48,7 +46,7 @@ function dets = ApplyClassifier(in_dets, scimages, Cparams, classifier_index)
             % Is it a face?
             if (sc>Cparams.thresh(classifier_index))
               % Keep it as a face  
-              dets = [dets;[x,y,L,L,mu,o,s]];
+              dets = [dets;[x,y,in_dets(i,3),in_dets(i,4),u,o,s]];
             end         
     end
 end

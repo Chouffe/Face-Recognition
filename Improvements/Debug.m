@@ -6,19 +6,24 @@
 % Thresholds = GetOptimalThresholds(fpr,tpr,0.9,start,stop);
 % Cparams.thresh = Thresholds;
 
-path = '../TestImages/one_chris.png';
-
-im = path;
-min_s = 0.6;
-max_s = 1.4;
-step_s = .06;
-
-scimages = {};
+%path = '../TestImages/one_chris.png';
+%
+%im = path;
+%min_s = 0.6;
+%max_s = 1.4;
+%step_s = .06;
+%
+%scimages = {};
 
 % % Profile 
 % profile on -history
 
-[scimages, dets] = ScanImageOverScale(Cparams, im, min_s, max_s, step_s, scimages, 100);
+[scimages, dets] = ScanImageOverScale(Cparams, im, min_s, max_s, step_s, scimages, 1);
+dets2 = ApplyClassifier(dets, scimages, Cparams, 10);
+dets3 = ApplyClassifier(dets2, scimages, Cparams, 40);
+dets4 = ApplyClassifier(dets3, scimages, Cparams, 70);
+dets5 = ApplyClassifier(dets4, scimages, Cparams, 100);
+DisplayDetections(im, dets5);
 
 % profile viewer
 % p = profile('info');

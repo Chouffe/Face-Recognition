@@ -1,6 +1,5 @@
 function [scimages, dets] = ScanImageOverScale(Cparams, im, min_s, max_s, step_s, scimages, classifier_index)
  
-percent = .5;
 % Image processing
 I = imread(im);
 if size(I,3) == 3

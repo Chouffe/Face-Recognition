@@ -1,4 +1,4 @@
-function [fpr,tpr] = ROCoverC(Cparams)
+function [start,stop, fpr,tpr] = ROCoverC(Cparams)
 
 
 C = length(Cparams.alphas);
@@ -15,7 +15,8 @@ thresh = zeros(1,C);
 
 nscores = zeros(1,n);
 pscores = zeros(1,p);
-
+start = zeros(1,C);
+stop = zeros(1,C);
 
 STEPS = 2000;
 tpr = zeros(C, STEPS);
@@ -58,12 +59,12 @@ for c = 1:C
        
     % Loop over T
     
-    start = min([nscores,pscores]);
-    stop = max([nscores,pscores]);
+    start(c) = min([nscores,pscores]);
+    stop(c) = max([nscores,pscores]);
     
     % Counter
     i = 1;
-    thresholds = linspace(start,stop,STEPS);
+    thresholds = linspace(start(c),stop(c),STEPS);
     for t = thresholds    
         % Number of true positives
         tpr(c,i) = sum(pscores >= t) / (p);   

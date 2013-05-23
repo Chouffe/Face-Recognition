@@ -17,15 +17,18 @@ dets = [];
 for x = 1:X-L+1
     for y = 1:Y-L+1
         
-        vector = VecBoxSumAld(x,y,L,L,X,Y);
+      %  vector = VecBoxSumAld(x,y,L,L,X,Y);
         % -------------------------------------
         % Normalize the box
         % -------------------------------------
         patch = ii_im(y:y+L-1,x:x+L-1);
         % Compute mean      
-        u = mu(:)'*vector;
+        %u = mu(:)'*vector;
+		u = mu(y,x) + mu(y+L-1,x+L-1) - mu(y+L-1,x) - mu(y,x+L-1);
         % Compute sigma        
-        o = sqrt((1/ (L^2-1))*(squared(:)'*vector - L^2*u^2));        
+		sq = squared(y,x) + squared(y+L-1,x+L-1) - squared(y+L-1,x) - squared(y,x+L-1);
+        o = sqrt((1/ (L^2-1))*(sq - L^2*u^2));        
+      %  o = sqrt((1/ (L^2-1))*(squared(:)'*vector - L^2*u^2));        
         % *******************************-------------------------------------                
         % sc = ApplyDetectorM(Cparams,patch,o,u);
 % *******************************-------------------------------------                        

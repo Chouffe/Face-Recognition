@@ -5,15 +5,15 @@
 % [start, stop, fpr,tpr] = ROCoverC(Cparams);
 % Thresholds = GetOptimalThresholds(fpr,tpr,0.9,start,stop);
 % Cparams.thresh = Thresholds;
+%
+%path = '../TestImages/many_faces.png';
 
-%path = '../TestImages/one_chris.png';
-%
 %im = path;
-%min_s = 0.6;
-%max_s = 1.4;
-%step_s = .06;
-%
-%scimages = {};
+min_s = 0.6;
+max_s = 1.4;
+step_s = .06;
+
+scimages = {};
 
 % % Profile 
 % profile on -history

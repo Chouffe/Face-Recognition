@@ -10,6 +10,7 @@
 path = '../TestImages/many_faces.jpg';
 
 im = path;
+
 min_s = 0.6;
 max_s = 1.4;
 step_s = .06;
@@ -41,8 +42,6 @@ save myprofiledata4 p
 clear p
 load myprofiledata4
 profview(0,p)
-
-
 
 %classifier_index = 10;
 %dets = ApplyClassifier(dets, scimages, Cparams, classifier_index)
